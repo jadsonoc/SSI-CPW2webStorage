@@ -14,6 +14,12 @@
     <input type="color" id="color" onblur="changeColor()" />
     <br />
     <label for="font">Fonte do título do fundo: </label>
+    <select id="font" onchange="changeFont(this);"> 
+      <option id="op0" value="">Padrão</option>
+      <option id="op1" value="Arial">Arial</option>
+      <option id="op2" value="Monaco">Monaco</option>
+      <option id="op3" value="Bradley Hand">Bradley Hand</option>
+    </select> 
     <!--
       1 - Implemente um HTML select para trocar a fonte do texto Web Storage que, nesse projeto,
       está contido em um parágrafo. Algumas regras devem ser observadas:
@@ -37,13 +43,17 @@
       /**
        * Troca a fonte do elemento onde o id é "text"
        */
-      function changeFont() {
+      function changeFont( inputFont ) {
         /**
          * 2 - Implemente o corpo do método `changeFont`. Este método deve ser capaz
          * de trocar a fonte do texto `Web Storage` e também salvar o valor
          * escolhido no no local *localStorage* sempre que o usuário selecionar
          * o tipo da fonte por meio do HTML select.
          */
+        let objElement = document.getElementById("text");
+        objElement.style.fontFamily = inputFont.value;
+        //Armazena no localstorage
+        localStorage.setItem("font-p", inputFont.value);
       }
 
       /**
@@ -55,6 +65,11 @@
          * 3 - Altere o método `load` para recuperar o nome da fonte do *localStorage* e
          * estilizar o texto `Web Storage`
          */
+        document.getElementById("text").style.fontFamily = localStorage.getItem("font-p");
+        //Ajusta o seletor de acordo com o valor armazenado no LocalStorage
+        let selectElement = document.querySelector("#font");
+        let selectedValue = localStorage.getItem("font-p");
+        selectElement.value = ( selectedValue != null ) ? selectedValue : "";
       }
     </script>
   </body>
